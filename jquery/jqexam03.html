@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"></script>
+
+    <script>
+      $(function () {
+        $("#button").click(function () {     //버튼을 실행 하는 동안
+          let text;
+          let title;
+          while (true) {
+            title = prompt("이름을 입력해주세요");   // 이름을 입력해주고
+            if (title === null || title.trim() === "") { // 널이거나 공백이면
+              alert("정확한 이름을 기재해주세요");        // 정확히 입력하라는 경고창이 나오고
+            } else {                                    // 제데로 입력하면
+              break;                                    // break;
+            }
+          }
+          while (true) {
+            text = prompt("등록할 기사를 입력해주세요");  // 기사를 입력하는 칸
+            if (text === null || text.trim() == "") {  
+              alert("정확한 기사를 기재해주세요");
+            } else {
+              break;
+            }
+          }
+
+          const newsDiv = $("<div>").attr("id", "news").appendTo("#main");
+            //newsDiv 변수에는 id 속성값이 "news"인 <div> 요소가 생성되고,
+            //.appendTo("#main")은 생성한 요소를 id가 "main"인 요소 안에 추가합니다.
+
+          const newsContent = $("<b>").text(title).appendTo(newsDiv); //title은 진하게하고
+          $("<span>").text(text).appendTo(newsDiv); //뒤에 기사 내용은 기본으로 하기위해.
+        });                 
+      });
+    </script>
+    <style>
+      #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #header {
+        width: 490px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        background-color: rgb(15, 140, 145);
+        padding-left: 10px;
+      }
+      #main {
+        width: 500px;
+        height: 110%;
+        background-color: rgba(29, 134, 194, 0.175);
+      }
+      #button {
+        margin-top: 20px;
+        background-color: gray;
+        width: 140px;
+        height: 40px;
+      }
+      #news {
+        border: 1px black solid;
+        margin: 20px 20px 20px 20px;
+        height: 50px;
+        font-size: 30px;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">기사 등록하기</div>
+      <div id="main">
+        <div id="news"><b>박지성</b>&nbsp;SBS에서 월드컵 보세요!</div>
+        <div id="news"><b>안정환</b>&nbsp;MBC죠...</div>
+        <div id="news"><b>이영표</b>&nbsp;KBS는 수신료의 가치를..</div>
+      </div>
+      <input type="button" value="등록하기" id="button" />
+    </div>
+  </body>
+</html>
