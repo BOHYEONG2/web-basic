@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마우스대면바뀌기</title>
+</head>
+    <style>
+        #button1{
+            background-color: gray;
+            color:white;
+            border: 1px solid black;
+            width:150px;
+            height:70px;
+            font-size: 30px;
+        }
+        #button2{
+            background-color: gray;
+            color:white;
+            border: 1px solid black;
+            width:150px;
+            height:70px;
+            font-size: 30px;
+        }
+        #button3{
+            background-color: gray;
+            color:white;
+            border: 1px solid black;
+            width:150px;
+            height:70px;
+            font-size: 30px;
+        }
+
+    </style>
+<body>
+    <script>
+        function changeColor(id) {          
+            let button = document.getElementById(id);
+            button.style.backgroundColor= 'white';
+            button.style.color='black';
+        }
+        function returnColor(id) {          
+            let button = document.getElementById(id);
+            button.style.backgroundColor= "";
+            button.style.color="";
+        }
+    </script>
+
+    <button id="button1" onmouseover="changeColor('button1')" onmouseleave="returnColor('button1')">html</button>
+    <button id="button2" onmouseover="changeColor('button2')" onmouseleave="returnColor('button2')">CSS</button>
+    <button id="button3" onmouseover="changeColor('button3')" onmouseleave="returnColor('button3')">javascript</button>
+    
+</body>
+</html>
