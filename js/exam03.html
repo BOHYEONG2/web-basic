@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>색상변경하기</title>
+    <style>
+          #text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+           
+        }
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+  
+    </style>
+</head>
+<body>  
+ <script>
+    let text = prompt("텍스트를 입력해주세요");
+    let div = document.createElement('div');
+       div.textContent = text;
+       div.id = 'text';
+       document.body.appendChild(div);
+
+    
+    function changeColor(color) {
+            let text = document.getElementById('text');
+            text.style.color = color;
+            alert(`${color} 색으로 변경됩니다.`);
+        }
+
+ </script>
+  <div class="button-container">
+    <button onclick="changeColor('red')">빨강</button>
+    <button onclick="changeColor('blue')">파랑</button>
+    <button onclick="changeColor('green')">초록</button>
+  </div>
+
+</body>
+</html>
