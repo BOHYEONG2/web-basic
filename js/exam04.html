@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #button1{
+            position:absolute;
+            width:150px;
+            height:70px;
+            top:100px;
+            left : 100px;
+            box-sizing: border-box; /* 요소 크기 계산 방법 */
+            display: flex; /* 요소 내부 내용 정렬 */
+            align-items: center; /* 요소 내부 수직 정렬 */
+            justify-content: center; /* 요소 내부 수평 정렬 */
+            background-color: gray;
+            border: 1px solid black;
+            cursor: pointer;
+            color:white;
+            text-align: center;
+            font-size: 30px;
+        }
+        #button2 {
+            position: absolute;
+            width: 150px;
+            height: 70px;
+            top:100px;
+            left : 300px;
+            box-sizing: border-box; /* 요소 크기 계산 방법 */
+            display: flex; /* 요소 내부 내용 정렬 */
+            align-items: center; /* 요소 내부 수직 정렬 */
+            justify-content: center; /* 요소 내부 수평 정렬 */
+            background-color: gray;
+            border: 1px solid black;
+            cursor: pointer;
+            color: white;
+            text-align: center;
+            font-size: 30px;
+        }
+        #button3 {
+            position: absolute;
+            width: 150px;
+            height: 70px;
+            top: 100px;
+            left : 500px;
+            box-sizing: border-box; /* 요소 크기 계산 방법 */
+            display: flex; /* 요소 내부 내용 정렬 */
+            align-items: center; /* 요소 내부 수직 정렬 */
+            justify-content: center; /* 요소 내부 수평 정렬 */
+            background-color: gray;
+            border: 1px solid black;
+            cursor: pointer;
+            color: white;
+            text-align: center;
+            font-size: 30px;
+        }
+    </style>
+
+</head>
+<body>
+    <script>
+    let Box = null;
+      function changeColor(id) {
+        let button= document.getElementById(id);
+        if(button !== Box){
+            if(Box){
+                Box.style.backgroundColor="";
+                Box.style.color="";
+            }
+        }
+        button.style.backgroundColor = "#ffffff";
+        button.style.color = "#000000";
+        Box=button;
+      }
+
+    </script>
+    <div id="button1" onclick="changeColor('button1')">html</div>
+    <div id="button2" onclick="changeColor('button2')">css</div>
+    <div id="button3" onclick="changeColor('button3')">javascript</div>
+</html>
