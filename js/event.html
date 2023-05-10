@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+
+    <script>
+        function changeColor(color) {
+            let box = document.getElementById('box');
+            box.style.backgroundColor = color;
+        }
+
+        function showAlert(element) {
+            console.log(element.textContent);
+            alert(element.textContent);
+        }
+
+    </script>
+</head>
+<body>
+   <div id="box" onmouseover="changeColor('#ff0000')"
+   onmouseleave="changeColor('#ffff00')"></div>
+
+   <div class="big" onclok="showAlert(this)">Hello world</div>
+   <div onclick="showAlert(this)">안녕하세요</div>
+
+</body>
+
+</html>
