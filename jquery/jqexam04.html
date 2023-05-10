@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"> </script>
+
+    <script>
+        $(document).ready(function () {
+            let box = null;             //$(document).ready() 함수는 jQuery에서 가장 많이 사용되는 함수 중 하나로,
+                                        // 문서가 로드될 때 jQuery 코드를 실행하도록 보장해줍니다.
+
+            function changeColor(id) {
+                let button = $("#" + id); //let $button = $('#' + id);는 $()를 이용하여 id값에 해당하는 버튼을 찾아 $button에 할당합니다.
+                if(button[0] !== box) {
+                    if(box) {                           
+                        box.css({ backgroundColor: "", color: "" });  // .css() 메소드로  html요소의 css스타일을 변경
+                    }                                                 // "". "" 로 배경색상과 텍스트 색상을 초기화
+                }
+                button.css({ backgroundColor: "ffffff", color: "#000000" });  // 새로 클릭된 버튼의 배경 색상을 하얀색,글자를 검정색으로 변경
+                box = button;   // 새로 선택된 버튼을 박스에 저장
+            }
+
+            $("#button1").click(function() {
+                changeColor("button1");
+            });
+            
+            $("#button2").click(function() {
+                changeColor("button2");
+            });
+
+            $("#button3").click(function() {
+                changeColor("button3");
+            });
+        });
+    </script>
+<style>
+    #button1{
+        position:absolute;
+        width:150px;
+        height:70px;
+        top:100px;
+        left : 100px;
+        box-sizing: border-box; /* 요소 크기 계산 방법 */
+        display: flex; /* 요소 내부 내용 정렬 */
+        align-items: center; /* 요소 내부 수직 정렬 */
+        justify-content: center; /* 요소 내부 수평 정렬 */
+        background-color: gray;
+        border: 1px solid black;
+        cursor: pointer;
+        color:white;
+        text-align: center;
+        font-size: 30px;
+    }
+    #button2 {
+        position: absolute;
+        width: 150px;
+        height: 70px;
+        top:100px;
+        left : 300px;
+        box-sizing: border-box; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        background-color: gray;
+        border: 1px solid black;
+        cursor: pointer;
+        color: white;
+        text-align: center;
+        font-size: 30px;
+    }
+    #button3 {
+        position: absolute;
+        width: 150px;
+        height: 70px;
+        top: 100px;
+        left : 500px;
+        box-sizing: border-box; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        background-color: gray;
+        border: 1px solid black;
+        cursor: pointer;
+        color: white;
+        text-align: center;
+        font-size: 30px;
+    }
+</style>
+</head>
+<body>
+    <div id="button1">html</div>
+    <div id="button2">css</div>
+    <div id="button3">javascript</div>
+</body>
+</html>
