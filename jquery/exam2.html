@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+    src="https://code.jquery.com/jquery-3.6.4.js"
+    integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+
+    <script>
+        $(function() {
+          $('#cancel-button').click(function() {
+            $('input[type="text"]').val('');
+            $('input[type="password"]').val('');
+            $('input[type="radio"]').prop('checked', false);
+            $('select').val('');
+            $('input[type="checkbox"]').prop('checked', false);
+          });
+      
+          $('#signup-button').click(function() {
+            let username = $('#username').val();
+            let password = $('#password').val();
+            let sex = $('input[name="sex"]:checked').val();
+            let job = $('#job').val();
+            let hobbies = [];
+            $('input[type="checkbox"]:checked').each(function() {
+              hobbies.push($(this).attr('id').replace('hobby-', ''));
+            });
+      
+            // 아이디 유효성 검사
+            if (username === '') {
+              alert('아이디를 입력하세요.');
+              return;
+            } else if (!isValidEmail(username)) {
+              alert('유효한 이메일 형식이 아닙니다.');
+              return;
+            }
+      
+            // 비밀번호 유효성 검사
+            if (password === '') {
+              alert('비밀번호를 입력하세요.');
+              return;
+            } else if (password.length < 5) {
+              alert('비밀번호는 최소 5자 이상이어야 합니다.');
+              return;
+            }
+      
+            if (!sex) {
+              alert('성별을 선택하세요.');
+              return;
+            }
+      
+            if (job === '') {
+              alert('직업을 선택하세요.');
+              return;
+            }
+      
+            if (hobbies.length < 3) {
+              alert('취미는 3개 이상 선택해야 합니다.');
+              return;
+            }
+      
+            // 회원가입 로직 수행
+            alert('회원가입이 완료되었습니다!');
+          });
+      
+          // 이메일 유효성 검사 함수
+          function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+          }
+        });
+      </script>
+
+    <style>
+        li {
+          list-style: none;
+        }
+      </style>
+</head>
+<body>
+      <ul>
+      <li>아이디
+      <input type="email" id="username" /></li> 
+      <li>비밀번호
+      <input type="password" id="password" /></li>
+      <li>성별
+      <input type="radio" name="sex" value="male" />남자
+      <input type="radio" name="sex" value="female" />여자</li>
+      <li>직업
+      <select id="job">
+        <option value=""></option>
+        <option value="web-developer">웹개발자</option>
+        <option value="front-end">프론트앤드</option>
+        <option value="back-end">백앤드</option></li>
+      </select>
+      <li>취미
+      <input type="checkbox" id="hobby-development" />개발
+      <input type="checkbox" id="hobby-games" />게임
+      <input type="checkbox" id="hobby-fishing" />낚시 
+      <br>&ensp;&ensp;&ensp;&ensp;
+      <input type="checkbox" id="hobby-exercise" />운동
+      <input type="checkbox" id="hobby-reading" />독서
+      <input type="checkbox" id="hobby-music" />음악감상
+    </li>
+    </ul>
+
+    <input type="button" value="취소" id="cancel-button" />
+    <input type="button" value="회원가입" id="signup-button" />
+</body>
+</html>
