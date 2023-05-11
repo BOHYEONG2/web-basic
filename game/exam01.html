@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"></script>
+    <style>
+        #container {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border: 1px solid black;
+        }
+        #pompom {
+            position: absolute;
+            width: 100px;      
+            left: 180px;
+            top: 200px;
+            border: 1px solid;
+            display: none;  
+        }
+    </style>
+
+      <script>
+            $(function () {
+                const pompom = $('#pompom');
+                // 키보드 이벤트 정리
+                let count = 3;
+                gameStart();
+
+                $('html').keydown(function (e) {
+                    switch (e.key) {
+                     case 'ArrowRight':
+                        moveRight();
+                        break;
+                     case 'ArrowLeft':
+                        moveLeft();
+                        break;
+                    }
+                    console.log(e.key);
+                });
+            //3초 있다가 나오기
+            function gameStart() {
+                countDown();
+
+                setTimeout(function() {
+                    pompom.show();
+                }, 3000);
+            }
+
+            function countDown() {
+               let timer = setInterval(function() {
+                    console.log(count);
+                    count--;
+                    // 인터벌 취소
+                    if ( count < 0) {
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }
+
+
+            function moveRight() {
+                // 오른쪽 벽에 닿았는지
+                const pompomRightMargin
+                = $('#pompom').css('right').replace('px','');
+
+                if (pompomRightMargin >= 0) {
+                    pompom.animate({ left: '+=10px'});
+                }
+            
+            }
+            function moveLeft() {
+                const pompomLeftMargin = $('#ponpon').css('left').replace('px','');
+
+                if (pompomLeftMargin >= 10) {
+                pompom.animate({ left: '-=50px'});
+            }
+        }
+        });
+     </script>
+</head>
+    <body>
+        <div id="container">
+            <img id="pompom"
+            src ="pompom.png"
+            alt="">
+        </div>
+    </body>
+</html>
