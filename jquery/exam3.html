@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+    src="https://code.jquery.com/jquery-3.6.4.js"
+    integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+
+    <style>
+        table, th, td {
+            text-align: center;
+            border: 1px solid;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        .button {
+            margin-top: 10px;
+            margin-left: 90px;
+            width: 90px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="checkall">확인</th>
+        <th>제목</th>
+        <th>글쓴시간</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="checkitem"></td>
+        <td>11</td>
+        <td>11:11</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkitem"></td>
+        <td>22</td>
+        <td>11:11</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkitem"></td>
+        <td>33</td>
+        <td>11:11</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkitem"></td>
+        <td>44</td>
+        <td>11:11</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkitem"></td>
+        <td>55</td>
+        <td>11:11</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="checkitem"></td>
+        <td>66</td>
+        <td>11:11</td>
+      </tr>
+    </tbody>
+  </table>
+  <button id="log-btn">로그</button>
+
+  <script>
+    $(document).ready(function() {
+      // 체크박스 전체 선택/해제기능
+        $("#checkall").change(function() {
+            $(".checkitem").prop("checked", $(this).prop("checked"));
+        });
+
+     // 로그 버튼
+     $("#log-btn").click(function() {
+      let checkedItems = $(".checkitem:checked");
+      if (checkedItems.length === 0) {
+        alert("선택된 항목이 없습니다.");
+      } else {
+        checkedItems.each(function() {
+          console.log($(this).parent().next().text());
+        });
+      }
+     });
+    });
+  </script>
+</body>
+</html>
