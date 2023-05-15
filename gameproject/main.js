@@ -55,14 +55,17 @@ function Bullet() {
   };
 }
 let rocketList = [];
+let isRocketAllowed = true;
+let rocketCount = 0;
+
 function Rocket() {
     this.x = 0;   // 로켓 x 좌표
     this.y = 0;   // 로켓 y 좌표
-    
+    this.timeCreated = 0; 
   
     // 로켓 초기화 함수
     this.init = function() {
-      this.x = spaceshipX + 38;
+   //   this.x =  + 38;   x를 고정시켜두면 한곳에서 로켓이 나가니 x를 빼주면 된다.
       this.y = spaceshipY;
       this.alive = true;  // true면 살아있는 로켓 false면 죽은 로켓
       rocketList.push(this);  // 로켓 배열에 추가.
@@ -101,7 +104,7 @@ function generateRandomValue(min, max) {
   return randomNum;
 }
 
-let enemySpeed = 2;
+let enemySpeed = 1;
 function Enemy() {
   this.x = 0; // 적 개체 x좌표
   this.y = 0; // 적 개체 y좌표
@@ -145,9 +148,6 @@ function loadImage() {
 }
 
 
-
-
-
 let keysdown = {};
 
 function setupKeyboardListener() {
@@ -174,7 +174,7 @@ function setupKeyboardListener() {
   });
 }
 
-function createrocket() {
+/*function createrocket() {
     console.log("로켓생성");
     for (let i = 0; i < 10; i++) {  // 10개의 로켓을 생성
       let r = new Rocket();
@@ -182,6 +182,33 @@ function createrocket() {
       r.init();
     }
   }
+*/
+function createrocket() {
+  
+  console.log("로켓생성");
+  const numRockets = 20;          // 생성할 로켓의 갯수
+  const timeBetweenRockets =0; // 0초 간격으로 로켓 생성
+  let i = 0;
+  const intervalId = setInterval(() => { // setInterval 이용하여 로켓 생성을 반복 
+    if (i >= numRockets) {        // i >= numrocket setInterval 정지하고 함수 반환 
+      clearInterval(intervalId);
+      rocketCount = 0;
+     
+      return;
+    }
+    const r = new Rocket();
+    r.x = i * 20; // 로켓 x 좌표 설정
+    r.timeCreated = Date.now(); // 생성 시간 설정
+    r.init();   // 로켓 초기화 >> 로켓을 생성할 때 마다 로켓의 초기값을 설정해줘야함 그게 init();
+    rocketList.push(r); // 로켓 배열에 추가.
+    i++;                 // i를 증가시켜 Rocket의 x좌표 값을 설정 
+
+  }, timeBetweenRockets);
+}
+
+
+  
+
 
 function createBullet() {
   console.log("총알생성");
@@ -246,13 +273,13 @@ function update() {
   //   }
 
   if (score >= 800) {
-    enemySpeed = 10;
-  } else if (score >= 500) {
     enemySpeed = 8;
+  } else if (score >= 500) {
+    enemySpeed = 6;
   } else if (score >= 400) {
-    enemySpeed = 7;
-  } else if (score >= 300) {
     enemySpeed = 5;
+  } else if (score >= 300) {
+    enemySpeed = 4;
   } else if (score >= 100) {
     enemySpeed = 3;
   }
@@ -262,8 +289,10 @@ function render() {
   // 캔버스에 화면 그리기
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height); // 캔버스 배경
   ctx.drawImage(spaceshipImage, spaceshipX, spaceshipY); // 우주선
-  ctx.fillText(`score:${score}`, 10, 30);
-  ctx.fillstyle = "white";
+  ctx.fillStyle = "black";
+  ctx.fillText(`score:${score}`, 10, 30 , );
+  ctx.fillText(`rocket:${rocketList.length}`, 10, 70); // 로켓 발사 가능 횟수 표시
+  
   ctx.font = "40px Arial";
 
   // 우주선 초기값으로 시작하고
@@ -314,19 +343,23 @@ function restartGame() {
   bulletList = [];
   enemyList = [];
   gameOver = false;
-  enemySpeed = 2; // 애먹었는데, 재시작하면 빨라진 속도 다시 스피드2로하는 코드
+  const ENEMY_SPEED = 2 // 애먹었는데, 재시작하면 빨라진 속도 다시 스피드2로하는 코드
 
   // 캔버스 초기화
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  
   // 적군 생성
   createEnemy();
-
-  // 게임 루프 재시작
+ 
   main();
-
+  // 게임 루프 재시작
+  
+  if(!gameOver){ 
   // 재시작 버튼 숨기기
   document.getElementById("restart-button").style.display = "none";
+  }
+ 
 }
 
 // HTML 로드가 완료되면 이벤트 리스너를 버튼에 추가
@@ -335,37 +368,25 @@ window.onload = function () {
   restartButton.addEventListener("click", restartGame);
 };
 
-// function startGame() {
-//     if (canvas) {
-//         canvas.remove();
-//     }
-//     canvas = document.createElement("canvas");
-//     ctx = canvas.getContext("2d");
-//     canvas.width = 400;
-//     canvas.height = 700;
-//     document.body.appendChild(canvas);
+$(document).ready(function() {
+  // Start Game 버튼 클릭시
+  $('#start-button').click(function() {
+    // 배경 이미지 숨기기
+    $('#background-img').hide();
+    // 게임 시작 버튼 보이기
+    $(this).hide();
+   // $('#restart-button').show();
+    // 게임 시작
+    startGame();
+  });
+});
 
-//     // 변수 초기화
-//     score = 0;
-//     spaceshipX = (canvasWidth - spaceshipWidth) / 2;
-//     bulletList = [];
-//     enemyList = [];
-//     gameOver = false;
+function startGame() {
+  loadImage();
+  setupKeyboardListener();
+  createEnemy();
+  main();
+  document.getElementById("start-button").style.display = "none";
+}
 
-//     // 이미지 로드
-//     loadImage();
-
-//     // 키보드 이벤트 리스너 등록
-//     setupKeyboardListener();
-
-//     // 적군 생성
-//     createEnemy();
-
-//     // 게임 루프 시작
-//     main();
-// }
-
-loadImage();
-setupKeyboardListener();
-createEnemy();
-main();
+document.getElementById("start-button").addEventListener("click", startGame);
