@@ -31,7 +31,11 @@ function Bullet() {
 
     //총알 발사는 y좌표값이 줄어든다는거
     this.update = function () {
-        this.y -= 8;
+        this.y -= 8;                        // 화면 밖 점수오르는거 고치는데 4시간걸림.
+        if (this.y < 0) {                   // 이 코드가 없어서 총알이 적에 닿지않고 밖으로 나가도 점수가 올랐는데
+            this.alive = false;             // 총알의 y 좌표가 0보다 작아지면(총알이 화면밖으로 나가면)
+                                            // 총알 alive 속성이 false가 되어 죽은처리가됨
+        }
 };
 
 
@@ -46,11 +50,12 @@ this.checkHit = function() {            // 총알객체와 우주선이 충돌�
             score += 10;
             this.alive = false // (죽은 총알)  this(총알) 개체의 alive속성을 false로 하여 게임에서 보이지 않도록 한다 
             enemyList.splice(i, 1);    //  enemylist(적우주선)   index i번쨰 요소를 1개 제거하라는 뜻(splice) 배열에 저장한거에서 사라지니 우주선이 화면에서 사라짐
-            
-        }
+                       
+        } 
     }
 };
 }
+
 
 // 적군 저장하는 리스트 
 let enemyList = [];
@@ -94,6 +99,9 @@ function loadImage() {              // 이미지 가져오는 함수
 
     enemyImage = new Image();
     enemyImage.src="../images/enemy.png";
+
+    rocketImage = new Image();
+    rocketImage.src="../images/rocket.png";
     
 }
 
@@ -126,11 +134,11 @@ function jump() {
 let keysdown = {};
 
 function setupKeyboardListener() {
-    document.addEventListener("keydown", function(event) {
-        if (event.key === ' ') {
-            if (!(' ' in keysdown)) {
-                keysdown[' '] = true;
-                createBullet();
+    document.addEventListener("keydown", function(event) {      //키보드 이벤트리스너 등록
+        if (event.key === ' ') {                            // 눌려진 키보드가 spacebar 라면
+            if (!(' ' in keysdown)) {                      // 스페이스바가 처음 눌러졌다면 
+                keysdown[' '] = true;                       // 총알생성 
+                createBullet();                             // 눌리는거 방지는 밑에 delete
             }
         } else if ( event.key === 'a') {
             jump();
@@ -139,11 +147,15 @@ function setupKeyboardListener() {
         }
     });
 
-    document.addEventListener("keyup", function(event) {
-        delete keysdown[event.key];
+    document.addEventListener("keyup", function(event) {  // 키보드에서 손을 뗄 때 
+        delete keysdown[event.key];                     // keysdown에서 삭제  >> 총알 누르고 있는거 방지하기위해서
     });
 }
 
+    function createrocket() {
+        let r = new rocket();
+        r.init();
+    }
 
     function createBullet() {
      console.log("총알생성");
@@ -230,11 +242,12 @@ function render() {                         // 캔버스에 화면 그리기
     for(let i = 0; i< enemyList.length; i++) {                  // 적군 그리기
         ctx.drawImage(enemyImage,enemyList[i].x,enemyList[i].y);
     }
-}
-function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
 
+    
+}
+// function clearCanvas() {
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   }
 
 
 function main() {
@@ -243,67 +256,77 @@ function main() {
         render(); // 그려주고          반복해야 애니매이션 효과 
         requestAnimationFrame(main);
     } else {
-        const restartButton = document.getElementById('restart-button');
-        restartButton.style.display = 'block';
-        restartButton.removeEventListener('click', restartGame); // 이전 핸들러 제거
-        restartButton.addEventListener('click', () => {
-          // 게임 변수 초기화
-          score = 0;
-          spaceshipX = (canvasWidth - spaceshipWidth) / 2;
-          bulletList = [];
-          enemyList = [];
-          gameOver = false;
+      
+  ctx.drawImage(gameOverImage, 0, 0, canvas.width, canvas.height);
 
-           // 캔버스 초기화
-           clearCanvas();
-    
-          // 이미지 로드
-          loadImage();
-    
-          // 키보드 이벤트 리스너 등록
-          setupKeyboardListener();
-    
-          // 적군 생성
-          createEnemy();
-    
-          // 게임 루프 재시작
-          main();
-    
-          restartButton.style.display = 'none';
-        });
-        ctx.drawImage(gameOverImage, 10, 100, 380, 380);
+  // 재시작 버튼 보여주기
+  document.getElementById('restart-button').style.display = 'block';
+
+  const restartButton = document.getElementById('restart-button');
+  restartButton.removeEventListener('click', restartGame); // 이전 핸들러 제거
+  restartButton.addEventListener('click', restartGame); // 새 핸들러 추가
     }
 }
 
-function startGame() {
-    if (canvas) {
-        canvas.remove();
-    }
-    canvas = document.createElement("canvas");
-    ctx = canvas.getContext("2d");
-    canvas.width = 400;
-    canvas.height = 700;
-    document.body.appendChild(canvas);
-
-    // 변수 초기화
+// 게임 재시작 함수
+function restartGame() {
+    // 게임 변수 초기화
     score = 0;
-    spaceshipX = (canvasWidth - spaceshipWidth) / 2;
+    spaceshipX = canvas.width / 2 - 32;
+    spaceshipY = canvas.height - 64;
     bulletList = [];
     enemyList = [];
     gameOver = false;
-
-    // 이미지 로드
-    loadImage();
-
-    // 키보드 이벤트 리스너 등록
-    setupKeyboardListener();
-
+    enemySpeed = 2; // 애먹었는데, 재시작하면 빨라진 속도 다시 스피드2로하는 코드
+  
+    // 캔버스 초기화
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
     // 적군 생성
     createEnemy();
-
-    // 게임 루프 시작
+  
+    // 게임 루프 재시작
     main();
-}
+  
+    // 재시작 버튼 숨기기
+    document.getElementById('restart-button').style.display = 'none';
+  }
+  
+  // HTML 로드가 완료되면 이벤트 리스너를 버튼에 추가
+  window.onload = function() {
+    const restartButton = document.getElementById('restart-button');
+    restartButton.addEventListener('click', restartGame);
+  }
+
+// function startGame() {
+//     if (canvas) {
+//         canvas.remove();
+//     }
+//     canvas = document.createElement("canvas");
+//     ctx = canvas.getContext("2d");
+//     canvas.width = 400;
+//     canvas.height = 700;
+//     document.body.appendChild(canvas);
+
+//     // 변수 초기화
+//     score = 0;
+//     spaceshipX = (canvasWidth - spaceshipWidth) / 2;
+//     bulletList = [];
+//     enemyList = [];
+//     gameOver = false;
+
+//     // 이미지 로드
+//     loadImage();
+
+//     // 키보드 이벤트 리스너 등록
+//     setupKeyboardListener();
+
+//     // 적군 생성
+//     createEnemy();
+
+//     // 게임 루프 시작
+//     main();
+// }
 
 loadImage();
 setupKeyboardListener();
