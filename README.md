@@ -1,6 +1,8 @@
 # web-basic
 
-![ga![game3](https://github.com/BOHYEONG2/web-basic/assets/120361082/60802a01-e491-45bd-b378-4783de6f0382)om/BOHYEONG2/web-basic/assets/120361082/2de5c9a6-ee3b-4a94-a2d0-08f8d1a55d6a)![game2](https://github.com/BOHYEONG2/web-basic/assets/120361082/1f19db95-0bdc-4fcf-801e-b186c7f6c1bd)
-![game4](https://github.com/BOHYEONG2/web-basic/assets/120361082/48b180a7-e97c-4856-9916-e3915fcedefd)
-![game5](https://github.com/BOHYEONG2/web-basic/assets/120361082/9e74da7f-bd10-430c-8787-58872455855d)
+![game1](https://github.com/BOHYEONG2/web-basic/assets/120361082/8df0743b-fd6a-465f-9f40-17819b0b5622)<br>
+![game2](https://github.com/BOHYEONG2/web-basic/assets/120361082/c103d2f6-182b-4a55-993a-76b2b5e91eb9)<br>
+![game3](https://github.com/BOHYEONG2/web-basic/assets/120361082/a0e644aa-8be9-4ccb-a7c6-64adf5c1b48d)<br>
+![game4](https://github.com/BOHYEONG2/web-basic/assets/120361082/48b180a7-e97c-4856-9916-e3915fcedefd)<br>
+![game5](https://github.com/BOHYEONG2/web-basic/assets/120361082/9e74da7f-bd10-430c-8787-58872455855d)<br>
 
