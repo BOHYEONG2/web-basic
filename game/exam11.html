@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"></script>
+
+     
+    <style>
+        #container {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
+        #pompom {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            margin-left: 30%;
+            margin-top: 25%;
+            border: 1px solid;
+        }
+    </style>
+
+        <script>
+ /*           $(function () {
+                // 키보드 이벤트 정리
+                $('html').keydown(function() {
+                    console.log('이동!!!');
+                });
+            });
+            */
+            $(function () {
+      // 초기 위치와 속도 설정
+      var x = 150, y = 150, speed = 10;
+      var container = $('#container');
+      var pompom = $('#pompom');
+
+      $('html').keydown(function(event) {
+        switch (event.keyCode) {
+          case 37: // 왼쪽 방향키
+            x -= speed;
+            break;
+          case 38: // 위쪽 방향키
+            y -= speed;
+            break;
+          case 39: // 오른쪽 방향키
+            x += speed;
+            break;
+          case 40: // 아래쪽 방향키
+            y += speed;
+            break;
+        }
+        // 이미지를 새로운 위치로 이동
+        pompom.css({ 'left': x + 'px', 'top': y + 'px' });
+      });
+    });
+    $(function () {
+  // 변수 선언
+  var isJumping = false;
+  
+  // 키보드 이벤트 정리
+  $('html').keydown(function(event) {
+    if (event.which === 32 && !isJumping) {
+      // 스페이스 바 눌렀을 때
+      isJumping = true;
+      $("#pompom").animate({top: '-=50px'}, 500, function() {
+        // 점프가 끝났을 때
+        isJumping = false;
+        $("#pompom").animate({top: '+=50px'}, 500);
+      });
+    }
+  });
+
+  // 이동 이벤트 정리
+  $('html').keydown(function(event) {
+    if (event.which === 37) {
+      // 왼쪽 방향키 눌렀을 때
+      $("#pompom").animate({left: '-=10px'}, 0);
+    }
+    else if (event.which === 39) {
+      // 오른쪽 방향키 눌렀을 때
+      $("#pompom").animate({left: '+=10px'}, 0);
+    }
+  });
+});
+        </script>
+</head>
+<body>
+    <div id="container">
+        <img id="pompom"
+        src ="pompom.png"
+        alt="">
+    </div>
+</body>
+</html>
