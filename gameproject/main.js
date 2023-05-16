@@ -29,7 +29,7 @@ function Bullet() {
   //총알 발사는 y좌표값이 줄어든다는거
   this.update = function () {
     //총알 발사 함수
-    this.y -= 8; // 화면 밖 점수오르는거 고치는데 4시간걸림.
+    this.y -= 4; // 화면 밖 점수오르는거 고치는데 4시간걸림.
     if (this.y < 0) {
       // 이 코드가 없어서 총알이 적에 닿지않고 밖으로 나가도 점수가 올랐는데
       this.alive = false; // 총알의 y 좌표가 0보다 작아지면(총알이 화면밖으로 나가면)
@@ -73,7 +73,7 @@ function Rocket() {
   
     // 로켓 업데이트 함수
     this.update = function() {
-      this.y -= 10; // 로켓이 위로 올라가는 속도를 빠르게 하기 위해 10으로 수정
+      this.y -= 5; // 로켓이 위로 올라가는 속도를 빠르게 하기 위해 10으로 수정
       if (this.y < 0) { // 화면 밖으로 나가면 로켓이 사라짐
         this.alive = false;  // 죽은 로켓 (죽지 않으면 점수가 올라가서 추가해줘야함)
       }
@@ -222,7 +222,7 @@ function createEnemy() {
   const interval = setInterval(function () {
     let e = new Enemy();
     e.init(); // setInterval 함수로 0.5초마다 init을 불러옴 init은 적 개체 랜덤하게 나타내는 코드가 있음
-  }, 500); // 0.5초마다 적군 개체수를 생성
+  }, 1200); // 0.5초마다 적군 개체수를 생성
 }
 
 //   let b = new Bullet(); // 총알 하나 생성
@@ -272,16 +272,16 @@ function update() {
   //     enemySpeed ++;        // enemySpeed를 1 증가시킴
   //   }
 
-  if (score >= 800) {
-    enemySpeed = 8;
-  } else if (score >= 500) {
-    enemySpeed = 6;
-  } else if (score >= 400) {
+  if (score >= 1500) {
     enemySpeed = 5;
-  } else if (score >= 300) {
+  } else if (score >= 1000) {
     enemySpeed = 4;
-  } else if (score >= 100) {
+  } else if (score >= 800) {
     enemySpeed = 3;
+  } else if (score >= 500) {
+    enemySpeed = 2;
+  } else if (score >= 300) {
+    enemySpeed = 1.5;
   }
 }
 
@@ -343,14 +343,13 @@ function restartGame() {
   bulletList = [];
   enemyList = [];
   gameOver = false;
-  const ENEMY_SPEED = 2 // 애먹었는데, 재시작하면 빨라진 속도 다시 스피드2로하는 코드
+  const ENEMY_SPEED = 1 // 애먹었는데, 재시작하면 빨라진 속도 다시 스피드2로하는 코드
 
   // 캔버스 초기화
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   
-  // 적군 생성
-  createEnemy();
+  
  
   main();
   // 게임 루프 재시작

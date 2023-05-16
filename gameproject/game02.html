@@ -44,6 +44,13 @@
         height: 100%;
         z-index: -1;
       }
+      #game-description {
+        position: absolute;
+        top: 30%;
+        left: 20%;
+        transform: translateY(-50%);
+        width: 300px;
+      }
     </style>
   </head>
 
@@ -51,9 +58,21 @@
     <div id="canvas-container">
       <img id="background-img" src="backgroundimg.png" alt="Background Image" />
       <canvas id="game-canvas"></canvas>
+      <div id="game-description">
+        <h1>Welcome to My Game</h1>
+        <p>
+          위에서 내려오는 적이 바닥에 닿으면<br>
+          GameOver되는 게임입니다!<br><br>
+          점수가 올라 갈수록 적이 내려오는 속도가 빨라집니다<br>
+          방향키 left, right<br><br>
+          spacebar = 총알 발사<br><br>
+          a 키 = 한번에 발사하는 총알(필살기)
+
+        </p>
+      </div>
       <button id="start-button">Start Game</button>
       <button id="restart-button"><b>Game Start</b></button>
     </div>
-    <script src="main06.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
