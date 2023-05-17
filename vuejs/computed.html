@@ -14,20 +14,32 @@
         <div>
         {{ upperCaseMessage }}
         </div>    
+        <input v-on:click="reverseMessage"
+         type="button" value="뒤집기" >
     </div>
 
     <script>
         const app = new Vue({   
             el: '#app',       
             data: {
-                message: "dwqdwqdwqwdq "
+                message: " dataaawwer "
             },
             computed: { // 관찰
                 upperCaseMessage: function () {
                     return this.message.toUpperCase();
                 }
-            }
+            },
+            created: function () {
+                // 생성자 
+                console.log('생성자!!!!');
+            },
+             methods: {
+                reversedMessage: function() {
+                    this.message = this.message.split('').reverse().join('');
+                }
+            }   
         });
     </script>
 </body>
+
 </html>
