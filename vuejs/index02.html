@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="message"> 
+        <div>
+        {{ message }}
+        </div>    
+    </div>
+
+    <script>
+        const app = new Vue({   // 대문자 안쓰면 위에 message가 출력됨
+            el: '#app',       // key value 제이슨을 넣어주는면됨 script 안에 쓰고있는게 json임
+            data: {
+                message: "hello vue!"  // 여기에 메시지 적으면 화면에 출력됨   input message가 1번  <<여기가 2번  위에 인풋아래 메시지가 3번 순환식
+            }
+        });
+    </script>
+</body>
+</html>
